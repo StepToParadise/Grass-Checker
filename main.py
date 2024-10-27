@@ -57,7 +57,7 @@ class AirdropAllocator:
         self.masked_wallet = f"{self.wallet_address[:6]}...{self.wallet_address[-6:]}"
         self.proxy = proxy and Proxy.from_str(proxy).as_url
         self.index = index
-        self.base_url = 'https://api.getgrass.io/airdropAllocationsV2'
+        self.base_url = 'https://api.getgrass.io/zvTlZ8PRouKKGTGNzg4k'
         self.headers = {
             'accept': 'application/json, text/plain, */*',
             'accept-language': 'en-US,en;q=0.9',
@@ -76,7 +76,7 @@ class AirdropAllocator:
         self.results_table = []
         self.table_formatter = table_formatter
 
-    @retry(wait=wait_exponential(min=2, max=6), stop=stop_after_attempt(15))  # Увеличено количество попыток до 15
+    @retry(wait=wait_exponential(min=1, max=2), stop=stop_after_attempt(15))  # Увеличено количество попыток до 15
     async def fetch_airdrop_allocation(self):
         async with aiohttp.ClientSession(connector=aiohttp.TCPConnector(ssl=False)) as session:
             async with session.get(f'{self.base_url}?input=%7B%22walletAddress%22:%22{self.wallet_address}%22%7D',
